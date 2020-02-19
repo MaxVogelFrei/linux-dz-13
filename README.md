@@ -71,23 +71,23 @@ export BORG_PASSPHRASE="vagrant"
 borg create --list -v --stats --compression zlib,5  borg@192.168.13.11:/home/borg/backup::"etc-{now:%Y-%m-%d_%H:%M:%S}" /etc
 ```
 
-пример вывода команды borg create с параметрами из скрипта  
+пример вывода команды borg create с параметрами из скрипта демонстрирует работу сжатия и дедупликации  
 ```bash
 ------------------------------------------------------------------------------
-Archive name: etc-2020-02-18_14:53:41
-Archive fingerprint: b9a9e8d8a8707a79e79dc41dc2e89b5f98dbac5dd03ff5eea11c8b7d9b4f7943
-Time (start): Tue, 2020-02-18 14:53:46
-Time (end):   Tue, 2020-02-18 14:53:47
-Duration: 1.17 seconds
+Archive name: etc-2020-02-19_12:10:02
+Archive fingerprint: a1248d74168cca8abd0fead7e92b55e5c56b7b9ea80deec5ed5f39a985265ee2
+Time (start): Wed, 2020-02-19 12:10:03
+Time (end):   Wed, 2020-02-19 12:10:04
+Duration: 1.21 seconds
 Number of files: 1691
 Utilization of max. archive size: 0%
 ------------------------------------------------------------------------------
                        Original size      Compressed size    Deduplicated size
-This archive:               27.80 MB             13.27 MB                639 B
-All archives:               83.39 MB             39.79 MB             11.75 MB
+This archive:               27.80 MB             13.25 MB                644 B
+All archives:                7.20 GB              3.43 GB             12.07 MB
 
                        Unique chunks         Total chunks
-Chunk index:                    1278                 5058
+Chunk index:                    1538               436674
 ------------------------------------------------------------------------------
 ```
 
@@ -97,8 +97,10 @@ Chunk index:                    1278                 5058
 [root@server ~]# borg list borg@192.168.13.11:/home/borg/backup
 Enter passphrase for key ssh://borg@192.168.13.11/home/borg/backup:
 etc-2020-02-18_14:45:02              Tue, 2020-02-18 14:45:03 [854f3cb91cdb461b21c172b46c8fa9119642c264cfe47d1dac983fa45995b7db]
-etc-2020-02-18_14:50:02              Tue, 2020-02-18 14:50:03 [82ce7185ad151335e4e589f70f2d2f7867f203bf63bdb9a1e403b867d922c417]
-etc-2020-02-18_14:53:41              Tue, 2020-02-18 14:53:46 [b9a9e8d8a8707a79e79dc41dc2e89b5f98dbac5dd03ff5eea11c8b7d9b4f7943]
-etc-2020-02-18_14:55:01              Tue, 2020-02-18 14:55:03 [a834cb774324e133302cea1994b886c8bf13b70676e2cd3b0c2f5f83a47489a0]
+...
+...
+etc-2020-02-19_11:50:01              Wed, 2020-02-19 11:50:03 [0b1de6e07e3b9b513a24238a8a6c6ff2e63f8fbaa681a6ffb3fc1fd8e0f0cb50]
+etc-2020-02-19_12:00:01              Wed, 2020-02-19 12:00:03 [eaf4774ac165a748d46568a936cdda06071657c04a32d681da3b0ef86cb4aed4]
+etc-2020-02-19_12:10:02              Wed, 2020-02-19 12:10:03 [a1248d74168cca8abd0fead7e92b55e5c56b7b9ea80deec5ed5f39a985265ee2]
 ```
 
