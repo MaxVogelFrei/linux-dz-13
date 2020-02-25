@@ -65,10 +65,12 @@ borgbackup устанавливается из репозитория epel
 экспорт пароля в переменную BORG_PASSPHRASE  
 создание резервной копии со сжатием и выводом статистики  
 с именем из названия папки и временем запуска копирования  
+после копирования очищаю репозиторий от бэкапов оставляя 24 часовых, 14 дневных, 5 недельных и 12 месячных копий
 ```bash
 #!/bin/bash
 export BORG_PASSPHRASE="vagrant"
 borg create --list -v --stats --compression zlib,5  borg@192.168.13.11:/home/borg/backup::"etc-{now:%Y-%m-%d_%H:%M:%S}" /etc
+borg prune -v --list --keep-hourly=24 --keep-daily=14 --keep-weekly=5 --keep-monthly=12 borg@192.168.13.11:/home/borg/backup
 ```
 
 пример вывода команды borg create с параметрами из скрипта демонстрирует работу сжатия и дедупликации  
